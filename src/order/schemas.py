@@ -3,9 +3,6 @@ from pydantic import BaseModel
 
 
 class BaseOrderSchema(BaseModel):
-    order_id: int
-    product_id: int
-    product_in_order: int
     create_date: date
     status: str
 
