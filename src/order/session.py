@@ -16,7 +16,7 @@ class OrderSession:
         async with self.session.begin():
             order = data.model_dump()
             try:
-                query = insert(OrderItem).values(**order).returning(OrderItem)
+                query = insert(Order).values(**order).returning(Order)
                 return await self.session.scalar(query)
             except IntegrityError as err:
                 return handle_error(err)
