@@ -1,5 +1,7 @@
 from datetime import date
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+
+from src.product.schemas import ProductQuantityScheme
 
 
 class BaseOrderSchema(BaseModel):
@@ -7,10 +9,13 @@ class BaseOrderSchema(BaseModel):
     status: str
 
 
-class CreateOrderSchema(BaseOrderSchema):
+class CreateOrderSchema(BaseModel):
     """
     Create Order
     """
+    product_id: int
+    quantity_in_order: int = Field(ge=1)
+    product: str
 
 
 class OrderListSchema(BaseOrderSchema):
@@ -24,6 +29,7 @@ class OrderDetailSchema(BaseOrderSchema):
     Order detail scheme
     """
     id: int
+    product: ProductQuantityScheme | None = None
 
 
 class OrderUpdateSchema(BaseModel):

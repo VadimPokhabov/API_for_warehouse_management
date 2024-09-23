@@ -18,6 +18,7 @@ class ProductListSchema(BaseProductSchema):
     """
     List Product
     """
+    id: int
 
 
 class ProductDetailSchema(BaseProductSchema):
@@ -33,9 +34,10 @@ class ProductUpdateSchema(BaseProductSchema):
     """
 
 
-    # class ProductUpdateSchema(BaseModel):  FROM PATH NEED NONE
-    # """ Product update scheme """
-    # name: str | None = None
-    # description: str | None = None
-    # price: float | None = None
-    # quantity: int | None = None
+class ProductQuantityScheme(BaseProductSchema):
+    """
+    Product quantity schema
+    """
+    id: int
+    quantity: int
+

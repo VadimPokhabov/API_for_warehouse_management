@@ -16,3 +16,19 @@ def handle_error(error):
     if 'not present in table' in error_text:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=error_text)
     raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=error_text)
+
+
+class DatabaseError(Exception):
+    """ Opisanie"""
+
+    def __init__(self):
+        pass
+
+    # Описать ошибку.... принять только текст ошибки
+
+
+class EnoughProductOrder(Exception):
+    """ docs"""
+
+    def __init__(self, message: str):
+        self.message = message

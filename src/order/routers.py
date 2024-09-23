@@ -6,6 +6,7 @@ from typing import Annotated
 from fastapi_pagination.ext.sqlalchemy import paginate
 from src.base.paginate_config import PaginatePage
 from src.base.responses import ResponseSchema
+from src.base.utils import DatabaseError, EnoughProductOrder
 from src.config.session import get_async_session
 from src.order.schemas import CreateOrderSchema, OrderListSchema, OrderDetailSchema, OrderUpdateSchema
 from src.order.session import OrderSession
@@ -16,22 +17,34 @@ responses = ResponseSchema()
 
 @order_router.post(
     "/",
-    response_model=CreateOrderSchema,
-    responses=responses(CreateOrderSchema, status.HTTP_201_CREATED, [status.HTTP_409_CONFLICT]),
+    # response_model=CreateOrderSchema,
+    # responses=responses(CreateOrderSchema, status.HTTP_201_CREATED, [status.HTTP_409_CONFLICT]),
     status_code=status.HTTP_201_CREATED,
     description="Order create",
 )
 async def create_order(
         order_data: CreateOrderSchema,
         session: AsyncSession = Depends(get_async_session),
-) -> CreateOrderSchema:
+):
     """
     Create order
     :param order_data:
     :param session:
     :return: order_data
     """
-    return await OrderSession(session).create_order(order_data)
+    try:
+        a = await OrderSession(session).create_order(order_data)
+        return {'message': a}
+
+    except DatabaseError as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail='Ошибка базы данных')
+    except EnoughProductOrder as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=e.message)
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail='SERVER_ERROR')
+    # Здесь полная хрень надо переделать
+
+    # полный топор
 
 
 @order_router.get(
