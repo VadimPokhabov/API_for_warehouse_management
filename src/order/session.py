@@ -27,14 +27,11 @@ class OrderSession:
                         ProductDB)
                     res = await self.session.execute(qua)
                     order, = res.first() or (None,)
-                    print('asdqweasdqweasdqweasdqwedasdqawdqawdasdasdasdasdasdas', order.__dict__)
-
                     return order
                 except IntegrityError as error:
                     handle_error(error)
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                 detail="Недостаточное количество товара на складе")
-            # raise EnoughProductOrder(message='Недостаточное количество товара на складе')
 
     async def order_list(self, values: int | None) -> Select:
         """Returns list order"""
