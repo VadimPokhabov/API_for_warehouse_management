@@ -1,6 +1,5 @@
 from datetime import date
 from pydantic import BaseModel, Field
-
 from src.product.schemas import ProductQuantityScheme
 
 

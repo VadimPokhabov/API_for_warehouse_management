@@ -62,29 +62,3 @@ class OrderSession:
                 return product
             except IntegrityError as err:
                 return handle_error(err)
-
-# async with self.session as session:
-# try:
-#     query = select(ProductDB).where(ProductDB.name == data.product)
-#     product_row = await session.scalar(query)
-#     product_quantity = product_row.quantity
-#     if product_quantity >= data.quantity_in_order:
-#         new_order_item = OrderItem(
-#             id=data.id,
-#             product_id=data.product_id,
-#             quantity_in_order=data.quantity_in_order,
-#             product=data.product
-#         )
-#         session.add(new_order_item)
-#         product_row.quantity -= data.quantity_in_order
-#         stmt = update(ProductDB).where(ProductDB.name == data.product)
-#         await session.execute(stmt)
-#         await session.commit()
-#     else:
-#         raise EnoughProductOrder('Недостаточное количество товара на складе')
-#     # query = insert(OrderItem).values(**order).returning(OrderItem)
-#     return 'Ok'
-# except IntegrityError as err:
-#     return handle_error(err)
-# except Exception as e:
-#     raise DatabaseError()

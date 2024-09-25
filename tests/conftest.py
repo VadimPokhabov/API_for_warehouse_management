@@ -1,10 +1,8 @@
 import random
 from typing import AsyncGenerator
-
 import pytest
 from sqlalchemy import event, StaticPool
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
-
 from src.base.models import BaseDBModel
 from src.config.session import get_async_session
 from src.config.settings import config
@@ -12,7 +10,7 @@ from src.main import app
 
 pytest_plugins = [
     'tests.fixtures.product',
-    # 'tests.fixtures.order'
+    'tests.fixtures.order'
 ]
 
 
