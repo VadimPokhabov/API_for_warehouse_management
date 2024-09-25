@@ -6,7 +6,10 @@ from src.config.settings import config
 from src.order.routers import order_router
 from src.product.routers import product_router
 
-app = FastAPI(title='Products Type', debug=config.app.DEBUG, docs_url='/api/docs/', redoc_url='/api/redoc')
+app = FastAPI(title='Products Type',
+              debug=config.app.DEBUG,
+              docs_url='/api/docs/',
+              redoc_url='/api/redoc')
 
 app.include_router(product_router, prefix='/api/products', tags=['Products'])
 app.include_router(order_router, prefix='/api/order', tags=['Order'])

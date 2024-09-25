@@ -87,7 +87,8 @@ async def order_detail(
 @order_router.patch(
     '/{order_id}/',
     response_model=OrderUpdateSchema,
-    responses=responses(OrderUpdateSchema, statuses=[status.HTTP_409_CONFLICT, status.HTTP_404_NOT_FOUND]),
+    responses=responses(OrderUpdateSchema, statuses=[status.HTTP_409_CONFLICT,
+                                                     status.HTTP_404_NOT_FOUND]),
     description='Order update'
 )
 async def order_update(

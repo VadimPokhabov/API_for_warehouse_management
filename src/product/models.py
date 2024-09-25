@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING
 from sqlalchemy.orm import Mapped, relationship
 from src.base.models import BaseDBModel, mc
 if TYPE_CHECKING:

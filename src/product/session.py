@@ -21,7 +21,9 @@ class ProductSession:
             except IntegrityError as err:
                 return handle_error(err)
 
-    async def list_product(self, value: str | None, values: int | None) -> Select:
+    async def list_product(self,
+                           value: str | None,
+                           values: int | None) -> Select:
         """Returns list product"""
         async with self.session.begin():
             query = select(ProductDB)
@@ -44,10 +46,14 @@ class ProductSession:
             result, = product or (None,)
             return result
 
-    async def update_product_by_id(self, product_id: int, **data) -> ProductUpdateSchema:
+    async def update_product_by_id(self,
+                                   product_id: int,
+                                   **data) -> ProductUpdateSchema:
         """Update product by id."""
         async with self.session.begin():
-            query = update(ProductDB).where(ProductDB.id == product_id).values(**data).returning(ProductDB)
+            query = update(ProductDB).where(
+                ProductDB.id == product_id
+            ).values(**data).returning(ProductDB)
             try:
                 result = await self.session.execute(query)
                 product, = result.first() or (None,)
@@ -58,7 +64,9 @@ class ProductSession:
     async def delete_product_by_id(self, product_id: int) -> int | None:
         """Delete product by id."""
         async with self.session.begin():
-            query = delete(ProductDB).where(ProductDB.id == product_id).returning(ProductDB)
+            query = delete(ProductDB).where(
+                ProductDB.id == product_id
+            ).returning(ProductDB)
             result = await self.session.execute(query)
             id_product, = result.first() or (None,)
             return id_product

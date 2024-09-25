@@ -1,10 +1,10 @@
 from fastapi import HTTPException
-from sqlalchemy import insert, Select, select, update
+from sqlalchemy import Select, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 
-from src.base.utils import handle_error, DatabaseError, EnoughProductOrder
-from src import Order, OrderItem, ProductDB
+from src.base.utils import handle_error
+from src import Order, ProductDB
 from src.order.schemas import CreateOrderSchema, OrderDetailSchema, OrderUpdateSchema
 from sqlalchemy.exc import IntegrityError
 

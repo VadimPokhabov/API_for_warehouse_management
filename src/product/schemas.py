@@ -40,4 +40,3 @@ class ProductQuantityScheme(BaseProductSchema):
     """
     id: int
     quantity: int
-
